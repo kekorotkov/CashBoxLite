@@ -74,7 +74,7 @@ procedure Tf_CashBoxLite.OpenGoods;
   begin
     with Tf_goods.Create(Self) do
       try
-        RefreshGroups(nil);
+        RefreshGroups;
         ShowModal;
       finally
         Free;

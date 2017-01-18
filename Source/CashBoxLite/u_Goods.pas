@@ -5,8 +5,8 @@ interface
 uses
   u_base_modal_form,
   Winapi.Windows,
-  System.Classes,
-  Vcl.Menus, Vcl.StdCtrls, Vcl.Controls,
+  System.Classes, System.SysUtils, System.Variants,
+  Vcl.Menus, Vcl.StdCtrls, Vcl.Controls, Vcl.Forms,
   cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer,
   cxEdit, dxSkinsCore, dxSkinCaramel, cxCustomData, cxStyles, cxTL, cxTextEdit,
   cxTLdxBarBuiltInMenu, dxSkinsdxStatusBarPainter, cxSplitter, dxStatusBar,
@@ -22,19 +22,24 @@ type
     tl_groups_Name: TcxTreeListColumn;
     tl_goods_ID: TcxTreeListColumn;
     tl_goods_Name: TcxTreeListColumn;
+    tl_groups_ChildCount: TcxTreeListColumn;
+    tl_groups_GdsGrpID: TcxTreeListColumn;
     procedure FormResize(Sender: TObject);
     procedure tl_groupsFocusedNodeChanged(Sender: TcxCustomTreeList;
       APrevFocusedNode, AFocusedNode: TcxTreeListNode);
     procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure tl_groupsDblClick(Sender: TObject);
   private
-    procedure RefreshGoods(const grpNode: TcxTreeListNode;
-      const id: Integer = 0);
+    lstBreadCrumbs: TStringList;
+    procedure RefreshGoods(const grpNode: TcxTreeListNode; const id: Integer = 0);
     procedure OpenBarcode;
+    procedure Return;
+    procedure RefreshBreadCrumbs(const Node: TcxTreeListNode);
   protected
     procedure Command(Key: Word); override;
   public
-    procedure RefreshGroups(const pNode: TcxTreeListNode;
-      const id: Integer = 0);
+    procedure RefreshGroups(const pID: Integer = 0; const id: Integer = 0);
   end;
 
 var
@@ -57,6 +62,15 @@ procedure Tf_Goods.Command(Key: Word);
           keybd_event(VK_TAB, 0, 0, 0);
           keybd_event(VK_TAB, 0, KEYEVENTF_KEYUP, 0);
         end;
+      VK_RETURN: Return;
+      VK_BACK:
+        begin
+          if tl_groups.Items[0].Values[tl_groups_ChildCount.ItemIndex] = -1 then
+            begin
+              RefreshBreadCrumbs(tl_groups.Items[0]);
+              RefreshGroups(NVL(tl_groups.Items[0].Values[tl_groups_ID.ItemIndex], 0));
+            end;
+        end;
     else
       inherited;
     end;
@@ -65,9 +79,15 @@ procedure Tf_Goods.Command(Key: Word);
 procedure Tf_Goods.FormCreate(Sender: TObject);
   begin
     inherited;
-
     F1Name := 'Поиск по штрихкоду';
     F2Name := 'Переместить';
+    lstBreadCrumbs := TStringList.Create;
+  end;
+//==============================================================================
+procedure Tf_Goods.FormDestroy(Sender: TObject);
+  begin
+    lstBreadCrumbs.Free;
+    inherited;
   end;
 //==============================================================================
 procedure Tf_Goods.FormResize(Sender: TObject);
@@ -86,21 +106,48 @@ procedure Tf_Goods.OpenBarcode;
       end;
   end;
 //==============================================================================
+procedure Tf_Goods.RefreshBreadCrumbs(const Node: TcxTreeListNode);
+  var
+    i: Integer;
+    s: string;
+  begin
+    if Node.Values[tl_groups_ChildCount.ItemIndex] = -1 then
+      lstBreadCrumbs.Delete(lstBreadCrumbs.Count -1)
+    else
+      lstBreadCrumbs.Add(Node.Texts[tl_groups_Name.ItemIndex]);
+
+    s := '';
+    for i := 0 to lstBreadCrumbs.Count -1 do
+      s := s + lstBreadCrumbs.Strings[i] + '/';
+
+    sb_path.Panels.Items[0].Text := s;
+  end;
+//==============================================================================
 procedure Tf_Goods.RefreshGoods(const grpNode: TcxTreeListNode;
   const id: Integer);
   const
-    sql_text = 'select 1 as id, "Товар №1" as name, 4 as img ' +
-               ' union all ' +
-               'select 2, "Товар №2", 4 ' +
-               ' union all ' +
-               'select 3, "Товар №3", 4 ' +
-               ' union all ' +
-               'select 4, "Товар №4", 4 ';
+    sql_all_text = 'select g.id, g.name, 4 as img ' +
+                   '  from gds_grp_hierarchy h ' +
+                   '  join gds_grp_link l ' +
+                   '    on l.grp_id = h.child_id ' +
+                   '  join gds_main g ' +
+                   '    on g.id = l.gds_id ' +
+                   ' where h.parent_id = :par_grp_id';
+    sql_text = 'select g.id, g.name, 4 as img ' +
+               '  from gds_grp_link l ' +
+               '  join gds_main g ' +
+               '    on g.id = l.gds_id ' +
+               ' where l.grp_id = :par_grp_id';
   var
    qr: TUniQuery;
   begin
-    qr := db.Query(sql_text);
+    if grpNode.Values[tl_groups_ChildCount.ItemIndex] = 0 then
+      qr := db.Query(sql_text)
+    else
+      qr := db.Query(sql_all_text);
     try
+      qr.Prepare;
+      qr.ParamByName('par_grp_id').Value := grpNode.Values[tl_groups_GdsGrpID.ItemIndex];
       qr.Open;
       TTreeList.FillTreeList(tl_goods,
                              qr,
@@ -115,30 +162,70 @@ procedure Tf_Goods.RefreshGoods(const grpNode: TcxTreeListNode;
     end;
   end;
 //==============================================================================
-procedure Tf_Goods.RefreshGroups(const pNode: TcxTreeListNode;
-  const id: Integer);
+procedure Tf_Goods.RefreshGroups(const pID, id: Integer);
   const
-    sql_text = 'select 0 as id, "..." as name, 3 as img ' +
+    sql_hi_lvl_text = 'select g.id, ' +
+                      '       (select count(h.id) ' +
+                      '          from gds_grp_hierarchy h ' +
+                      '         where h.lvl = 1 ' +
+                      '           and h.parent_id = g.id) as child_count, ' +
+                      '       g.name, ' +
+                      '       g.id as gds_grp_id, ' +
+                      '       3 as img ' +
+                      '  from gds_grp g ' +
+                      ' where not g.id in (select h.child_id ' +
+                      '                     from gds_grp_hierarchy h ' +
+                      '                    where h.lvl = 1)';
+    sql_text = 'select (select h.parent_id ' +
+               '          from gds_grp_hierarchy h ' +
+               '         where h.lvl = 1 ' +
+               '           and h.child_id = :par_parent_id) as id, ' +
+               '       -1 as child_count, ' +
+               '       "..." as name, ' +
+               '       :par_parent_id as gds_grp_id, ' +
+               '       12 as img ' +
                ' union all ' +
-               'select 1, "Группа №1", 3 ' +
-               ' union all ' +
-               'select 2, "Группа №2", 3 ' +
-               ' union all ' +
-               'select 3, "Группа №3", 3 ' +
-               ' union all ' +
-               'select 4, "Группа №4", 3 ';
+               'select t.id, ' +
+               '       t.child_count, ' +
+               '       t.name, ' +
+               '       t.id as gds_grp_id,' +
+               '       case when t.child_count = 0 then 3 else 13 end as img ' +
+               '  from (select g.id, ' +
+               '               (select count(h.id) ' +
+               '                  from gds_grp_hierarchy h ' +
+               '                 where h.lvl = 1 ' +
+               '                   and h.parent_id = g.id) as child_count, ' +
+               '               g.name ' +
+               '          from gds_grp_hierarchy h ' +
+               '          join gds_grp g ' +
+               '            on g.id = h.child_id ' +
+               '         where h.lvl = 1 ' +
+               '           and h.parent_id = :par_parent_id) t';
   var
    qr: TUniQuery;
   begin
-    qr := db.Query(sql_text);
+    if pID = 0 then
+      qr := db.Query(sql_hi_lvl_text)
+    else
+      qr := db.Query(sql_text);
     try
+      if pID <> 0 then
+        begin
+          qr.Prepare;
+          qr.ParamByName('par_parent_id').Value := pID;
+        end;
+
       qr.Open;
       TTreeList.FillTreeList(tl_groups,
                              qr,
                              [tl_groups_ID,
-                              tl_groups_Name],
+                              tl_groups_ChildCount,
+                              tl_groups_Name,
+                              tl_groups_GdsGrpID],
                              ['id',
-                              'name'],
+                              'child_count',
+                              'name',
+                              'gds_grp_id'],
                              'img',
                              tl_groups_ID.ItemIndex);
     finally
@@ -146,14 +233,40 @@ procedure Tf_Goods.RefreshGroups(const pNode: TcxTreeListNode;
     end;
   end;
 //==============================================================================
+procedure Tf_Goods.Return;
+  begin
+    if Assigned(Screen.ActiveControl) and (Screen.ActiveControl Is TcxTreeList) then
+      if TcxTreeList(Screen.ActiveControl).Name = 'tl_groups' then
+        begin
+          if Assigned(tl_groups.FocusedNode) then
+            with tl_groups.FocusedNode do
+              if Values[tl_groups_ChildCount.ItemIndex] <> 0 then
+                begin
+                  RefreshBreadCrumbs(tl_groups.FocusedNode);
+                  RefreshGroups(NVL(Values[tl_groups_ID.ItemIndex], 0));
+                end
+              else
+                if tl_goods.Count > 0 then
+                  btn_f2.Click;
+        end
+      else
+        if Assigned(tl_groups.FocusedNode) then
+          ModalResult := mrOk;
+  end;
+//==============================================================================
+procedure Tf_Goods.tl_groupsDblClick(Sender: TObject);
+  begin
+    btn_return.Click;
+  end;
+//==============================================================================
 procedure Tf_Goods.tl_groupsFocusedNodeChanged(Sender: TcxCustomTreeList;
   APrevFocusedNode, AFocusedNode: TcxTreeListNode);
   begin
     if (AFocusedNode <> APrevFocusedNode) and (AFocusedNode <> nil) then
       if Assigned(tl_goods.FocusedNode) then
-        RefreshGoods(nil)
+        RefreshGoods(AFocusedNode, tl_goods.FocusedNode.Values[tl_goods_ID.ItemIndex])
       else
-        RefreshGoods(nil);
+        RefreshGoods(AFocusedNode);
   end;
 //==============================================================================
 end.

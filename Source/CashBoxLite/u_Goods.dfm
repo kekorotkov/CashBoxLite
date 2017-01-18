@@ -2,6 +2,7 @@ inherited f_Goods: Tf_Goods
   Caption = #1058#1086#1074#1072#1088#1099
   ClientHeight = 481
   ClientWidth = 720
+  OnDestroy = FormDestroy
   ExplicitWidth = 736
   ExplicitHeight = 520
   PixelsPerInch = 96
@@ -33,6 +34,7 @@ inherited f_Goods: Tf_Goods
     OptionsView.Headers = False
     OptionsView.ShowRoot = False
     TabOrder = 1
+    OnDblClick = tl_groupsDblClick
     OnFocusedNodeChanged = tl_groupsFocusedNodeChanged
     object tl_groups_ID: TcxTreeListColumn
       Visible = False
@@ -49,6 +51,27 @@ inherited f_Goods: Tf_Goods
       Caption.Text = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
       DataBinding.ValueType = 'String'
       Position.ColIndex = 1
+      Position.RowIndex = 0
+      Position.BandIndex = 0
+      Summary.FooterSummaryItems = <>
+      Summary.GroupFooterSummaryItems = <>
+    end
+    object tl_groups_ChildCount: TcxTreeListColumn
+      Visible = False
+      Caption.Text = 'ChildCount'
+      DataBinding.ValueType = 'String'
+      Options.Customizing = False
+      Position.ColIndex = 2
+      Position.RowIndex = 0
+      Position.BandIndex = 0
+      Summary.FooterSummaryItems = <>
+      Summary.GroupFooterSummaryItems = <>
+    end
+    object tl_groups_GdsGrpID: TcxTreeListColumn
+      Visible = False
+      Caption.Text = 'gds_grp_id'
+      DataBinding.ValueType = 'String'
+      Position.ColIndex = 3
       Position.RowIndex = 0
       Position.BandIndex = 0
       Summary.FooterSummaryItems = <>
@@ -100,7 +123,12 @@ inherited f_Goods: Tf_Goods
     Top = 461
     Width = 720
     Height = 20
-    Panels = <>
+    Images = f_CashBoxLite.il_main
+    Panels = <
+      item
+        PanelStyleClassName = 'TdxStatusBarTextPanelStyle'
+        PanelStyle.ImageIndex = 3
+      end>
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
