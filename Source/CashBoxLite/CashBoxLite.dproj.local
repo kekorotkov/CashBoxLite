@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.847,=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.217,=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.725,C:\Users\Кирилл\Desktop\CashBoxLite\Source\BaseForms\u_base_form.dfm=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.780,C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.pas=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\u_CashBoxMenu.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.266,=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.090,=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.134,=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.624,=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.474,=C:\Users\Кирилл\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.725,C:\Users\Кирилл\Desktop\CashBoxLite\Source\BaseForms\u_base_form.pas=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.340,C:\Users\Кирилл\Desktop\CashBoxLite\Source\BaseForms\u_base_modal_form.pas=C:\Users\Кирилл\Desktop\CashBoxLite\Source\BaseForms\u_base_madal_form.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.340,C:\Users\Кирилл\Desktop\CashBoxLite\Source\BaseForms\u_base_modal_form.dfm=C:\Users\Кирилл\Desktop\CashBoxLite\Source\BaseForms\u_base_madal_form.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.846,C:\Users\Кирилл\Desktop\CashBoxLite\Source\BaseForms\u_base_key_form.pas=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.455,C:\Users\Кирилл\Desktop\CashBoxLite\Source\BaseForms\u_base_madal.dfm=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\u_Goods.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.842,=C:\Users\Кирилл\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.846,C:\Users\Кирилл\Desktop\CashBoxLite\Source\BaseForms\u_base_key_form.dfm=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.674,C:\Users\Кирилл\Desktop\CashBoxLite\Source\BaseForms\u_base_madal_form.pas=C:\Users\Кирилл\Desktop\CashBoxLite\Source\BaseForms\u_base_madal.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.929,C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\CashBoxLite.dproj=C:\Users\Кирилл\Documents\RAD Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.780,C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.dfm=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\u_CashBoxMenu.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.674,C:\Users\Кирилл\Desktop\CashBoxLite\Source\BaseForms\u_base_madal_form.dfm=C:\Users\Кирилл\Desktop\CashBoxLite\Source\BaseForms\u_base_madal.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.244,C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\u_CashBoxLite.dfm=C:\Users\Кирилл\Documents\RAD Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.455,C:\Users\Кирилл\Desktop\CashBoxLite\Source\BaseForms\u_base_madal.pas=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\u_Goods.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.571,C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\u_Goods.dfm=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.955,C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\u_Goods.dfm=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.132,C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\u_CashBoxLite.pas=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.222,C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\u_CashBoxLite.pas=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.244,C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\u_CashBoxLite.pas=C:\Users\Кирилл\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.955,C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\u_Goods.pas=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.222,C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\u_CashBoxLite.dfm=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.571,C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\u_Goods.pas=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.706,=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\u_Constants.pas</Transaction>
+    <Transaction>2017.01.18 14:10:22.639,=C:\Users\Кирилл\Desktop\CashBoxLite\Source\Core\u_database.pas</Transaction>
+    <Transaction>2017.01.18 14:10:22.651,=C:\Users\Кирилл\Desktop\CashBoxLite\Source\Core\u_messages.pas</Transaction>
+    <Transaction>2017.01.18 14:10:22.662,=C:\Users\Кирилл\Desktop\CashBoxLite\Source\Core\u_treelist.pas</Transaction>
+    <Transaction>2017.01.18 14:18:50.136,=C:\Users\Кирилл\Desktop\CashBoxLite\Source\Core\u_common.pas</Transaction>
+    <Transaction>2017.01.18 14:19:23.357,=C:\Users\Кирилл\Desktop\CashBoxLite\Source\Core\u_cript.pas</Transaction>
+    <Transaction>2017.01.18 14:19:33.034,=C:\Users\Кирилл\Desktop\CashBoxLite\Source\Core\u_md5.pas</Transaction>
+    <Transaction>2017.01.18 14:20:58.551,=C:\Users\Кирилл\Desktop\CashBoxLite\Source\Core\u_main_constants.pas</Transaction>
+    <Transaction>2017.01.18 14:22:37.701,C:\Users\Кирилл\Desktop\CashBoxLite\Source\Core\u_database.pas=</Transaction>
+    <Transaction>2017.01.18 14:23:19.092,=C:\Users\Кирилл\Desktop\CashBoxLite\Source\Core\u_SQLite_db.pas</Transaction>
+    <Transaction>2017.01.18 14:29:41.206,C:\Users\Кирилл\Desktop\CashBoxLite\Source\Core\u_main_constants.pas=</Transaction>
+    <Transaction>2017.01.18 15:56:58.202,=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.pas</Transaction>
+    <Transaction>2017.01.18 15:59:05.083,C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\u_GoodsBarcodeSearch.pas=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.pas</Transaction>
+    <Transaction>2017.01.18 15:59:05.083,C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\u_GoodsBarcodeSearch.dfm=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.dfm</Transaction>
+    <Transaction>2017.01.18 16:22:15.793,=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.pas</Transaction>
+    <Transaction>2017.01.18 16:24:17.879,C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\u_GoodsBarcodeSearch.pas=</Transaction>
+    <Transaction>2017.01.18 16:24:46.456,C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\u_GoodsBarcodeSearch.pas=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.pas</Transaction>
+    <Transaction>2017.01.18 16:24:46.456,C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\u_GoodsBarcodeSearch.dfm=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.dfm</Transaction>
+    <Transaction>2017.01.18 16:33:34.124,=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.pas</Transaction>
+    <Transaction>2017.01.18 16:34:04.457,C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\u_Pay.pas=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.pas</Transaction>
+    <Transaction>2017.01.18 16:34:04.457,C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\u_Pay.dfm=C:\Users\Кирилл\Desktop\CashBoxLite\Source\CashBoxLite\Unit1.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

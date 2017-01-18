@@ -45,3 +45,8 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+*.exe
+/Bin/Debug/dcu/*.dcu
+/Source/BaseForms/__history
+/Source/CashBoxLite/__history
+/Source/Core/__history
