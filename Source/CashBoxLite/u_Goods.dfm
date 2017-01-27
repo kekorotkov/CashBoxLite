@@ -29,12 +29,16 @@ inherited f_Goods: Tf_Goods
     OptionsData.Editing = False
     OptionsData.Deleting = False
     OptionsSelection.CellSelect = False
+    OptionsView.CellEndEllipsis = True
     OptionsView.Buttons = False
     OptionsView.ColumnAutoWidth = True
+    OptionsView.GridLines = tlglBoth
     OptionsView.Headers = False
     OptionsView.ShowRoot = False
+    Styles.StyleSheet = f_CashBoxLite.sts_default
     TabOrder = 1
     OnDblClick = tl_groupsDblClick
+    OnEnter = tl_groupsEnter
     OnFocusedNodeChanged = tl_groupsFocusedNodeChanged
     object tl_groups_ID: TcxTreeListColumn
       Visible = False
@@ -92,11 +96,19 @@ inherited f_Goods: Tf_Goods
     OptionsData.Editing = False
     OptionsData.Deleting = False
     OptionsSelection.CellSelect = False
+    OptionsView.CellEndEllipsis = True
     OptionsView.Buttons = False
     OptionsView.ColumnAutoWidth = True
+    OptionsView.GridLines = tlglBoth
     OptionsView.Headers = False
+    OptionsView.PaintStyle = tlpsCategorized
     OptionsView.ShowRoot = False
+    OptionsView.TreeLineStyle = tllsNone
+    Styles.StyleSheet = f_CashBoxLite.sts_default
     TabOrder = 2
+    OnCollapsing = tl_goodsCollapsing
+    OnDblClick = tl_goodsDblClick
+    OnEnter = tl_goodsEnter
     object tl_goods_ID: TcxTreeListColumn
       Visible = False
       Caption.Text = 'ID'
@@ -111,7 +123,63 @@ inherited f_Goods: Tf_Goods
     object tl_goods_Name: TcxTreeListColumn
       Caption.Text = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
       DataBinding.ValueType = 'String'
+      Width = 200
       Position.ColIndex = 1
+      Position.RowIndex = 0
+      Position.BandIndex = 0
+      Summary.FooterSummaryItems = <>
+      Summary.GroupFooterSummaryItems = <>
+    end
+    object tl_goods_ParentID: TcxTreeListColumn
+      Visible = False
+      Caption.Text = 'ParentID'
+      DataBinding.ValueType = 'String'
+      Options.Customizing = False
+      Position.ColIndex = 2
+      Position.RowIndex = 0
+      Position.BandIndex = 0
+      Summary.FooterSummaryItems = <>
+      Summary.GroupFooterSummaryItems = <>
+    end
+    object tl_goods_Unit_Name: TcxTreeListColumn
+      RepositoryItem = f_CashBoxLite.er_main_txt
+      Caption.Text = #1045#1076'.'#1080#1079#1084'.'
+      DataBinding.ValueType = 'String'
+      Width = 30
+      Position.ColIndex = 3
+      Position.RowIndex = 0
+      Position.BandIndex = 0
+      Summary.FooterSummaryItems = <>
+      Summary.GroupFooterSummaryItems = <>
+    end
+    object tl_goods_Price: TcxTreeListColumn
+      RepositoryItem = f_CashBoxLite.er_main_price_ReadOnly
+      Caption.Text = #1062#1077#1085#1072
+      DataBinding.ValueType = 'String'
+      Width = 50
+      Position.ColIndex = 4
+      Position.RowIndex = 0
+      Position.BandIndex = 0
+      Summary.FooterSummaryItems = <>
+      Summary.GroupFooterSummaryItems = <>
+    end
+    object tl_goods_BarCode: TcxTreeListColumn
+      RepositoryItem = f_CashBoxLite.er_main_txt
+      Caption.Text = #1064#1090#1088#1080#1093#1082#1086#1076
+      DataBinding.ValueType = 'String'
+      Width = 80
+      Position.ColIndex = 5
+      Position.RowIndex = 0
+      Position.BandIndex = 0
+      Summary.FooterSummaryItems = <>
+      Summary.GroupFooterSummaryItems = <>
+    end
+    object tl_goods_IsPiece: TcxTreeListColumn
+      Visible = False
+      Caption.Text = #1064#1090#1091#1095#1085#1099#1081
+      DataBinding.ValueType = 'String'
+      Options.Customizing = False
+      Position.ColIndex = 6
       Position.RowIndex = 0
       Position.BandIndex = 0
       Summary.FooterSummaryItems = <>

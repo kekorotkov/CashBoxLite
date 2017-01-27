@@ -17,6 +17,7 @@ type
     tl_menu_ID: TcxTreeListColumn;
     tl_menu_Name: TcxTreeListColumn;
     procedure FormCreate(Sender: TObject);
+    procedure tl_menuDblClick(Sender: TObject);
   private
     procedure OpenMenuItem;
   protected
@@ -107,6 +108,11 @@ procedure Tf_CashBoxMenu.RefreshMenu(const id: Integer);
     finally
       qr.Free;
     end;
+  end;
+//==============================================================================
+procedure Tf_CashBoxMenu.tl_menuDblClick(Sender: TObject);
+  begin
+    OpenMenuItem;
   end;
 //==============================================================================
 end.

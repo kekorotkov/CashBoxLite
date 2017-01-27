@@ -1,18 +1,16 @@
-inherited f_GoodsBarcodeSearch: Tf_GoodsBarcodeSearch
-  Caption = #1055#1086#1080#1089#1082' '#1090#1086#1074#1072#1088#1072' '#1087#1086' '#1096#1090#1088#1080#1093#1082#1086#1076#1091
-  ClientHeight = 114
-  ClientWidth = 593
+inherited f_AuthorizationPassword: Tf_AuthorizationPassword
+  Caption = #1042#1074#1077#1076#1080#1090#1077' '#1087#1072#1088#1086#1083#1100
+  ClientHeight = 113
+  ClientWidth = 592
   Position = poMainFormCenter
-  ExplicitWidth = 609
-  ExplicitHeight = 153
+  ExplicitWidth = 608
+  ExplicitHeight = 152
   PixelsPerInch = 96
   TextHeight = 13
   inherited gb_keys: TcxGroupBox
-    ExplicitWidth = 593
-    Width = 593
+    Width = 592
     inherited btn_return: TcxButton
-      Width = 103
-      ExplicitWidth = 103
+      Width = 102
     end
   end
   object txt_Barcode: TcxTextEdit

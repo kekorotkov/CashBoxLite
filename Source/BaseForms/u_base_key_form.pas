@@ -50,6 +50,7 @@ type
     property BackName: string read fBackName write fBackName;
     property ReturnName: string read fReturnName write fReturnName;
     property EscName: string read fEscName write fEscName;
+    procedure RefreshButton;
   end;
 
 var
@@ -99,23 +100,9 @@ procedure Tf_base_key_form.FormPaint(Sender: TObject);
   end;
 //==============================================================================
 procedure Tf_base_key_form.FormShow(Sender: TObject);
-  const
-    f1_pre_name     = '[ F1 ]';
-    f2_pre_name     = '[ F2 ]';
-    f3_pre_name     = '[ F3 ]';
-    f4_pre_name     = '[ F4 ]';
-    back_pre_name   = '[ ← ]';
-    return_pre_name = '[ Enter ]';
-    esc_pre_name    = '[ Esc ]';
   begin
     inherited;
-    btn_f1.Caption      := f1_pre_name      + #10#13 + fF1Name;
-    btn_f2.Caption      := f2_pre_name      + #10#13 + fF2Name;
-    btn_f3.Caption      := f3_pre_name      + #10#13 + fF3Name;
-    btn_f4.Caption      := f4_pre_name      + #10#13 + fF4Name;
-    btn_back.Caption    := back_pre_name    + #10#13 + fBackName;
-    btn_return.Caption  := return_pre_name  + #10#13 + fReturnName;
-    btn_esc.Caption     := esc_pre_name     + #10#13 + fEscName;
+    RefreshButton;
   end;
 //==============================================================================
 procedure Tf_base_key_form.KeyDown(var Key: Word; Shift: TShiftState);
@@ -134,18 +121,37 @@ procedure Tf_base_key_form.Move(const IsUp: Boolean);
         begin
           n := FocusedNode;
           if IsUp then
-            if n.Index > 0 then
-              n := Items[n.Index -1]
+            if n.AbsoluteIndex > 0 then
+              n := AbsoluteItems[n.AbsoluteIndex -1]
             else
-              n := Items[Count -1]
+              n := AbsoluteItems[AbsoluteCount -1]
           else
-            if n.Index < Count -1 then
-              n := Items[n.Index + 1]
+            if n.AbsoluteIndex < AbsoluteCount -1 then
+              n := AbsoluteItems[n.AbsoluteIndex + 1]
             else
-              n := Items[0];
+              n := AbsoluteItems[0];
           n.Focused := true;
           n.MakeVisible;
         end;
+  end;
+//==============================================================================
+procedure Tf_base_key_form.RefreshButton;
+  const
+    f1_pre_name     = '[ F1 ]';
+    f2_pre_name     = '[ F2 ]';
+    f3_pre_name     = '[ F3 ]';
+    f4_pre_name     = '[ F4 ]';
+    back_pre_name   = '[ ← ]';
+    return_pre_name = '[ Enter ]';
+    esc_pre_name    = '[ Esc ]';
+  begin
+    btn_f1.Caption      := f1_pre_name      + #10#13 + fF1Name;
+    btn_f2.Caption      := f2_pre_name      + #10#13 + fF2Name;
+    btn_f3.Caption      := f3_pre_name      + #10#13 + fF3Name;
+    btn_f4.Caption      := f4_pre_name      + #10#13 + fF4Name;
+    btn_back.Caption    := back_pre_name    + #10#13 + fBackName;
+    btn_return.Caption  := return_pre_name  + #10#13 + fReturnName;
+    btn_esc.Caption     := esc_pre_name     + #10#13 + fEscName;
   end;
 //==============================================================================
 procedure Tf_base_key_form.btn_backClick(Sender: TObject);

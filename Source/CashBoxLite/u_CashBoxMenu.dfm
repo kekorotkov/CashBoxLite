@@ -21,7 +21,9 @@ inherited f_CashBoxMenu: Tf_CashBoxMenu
     OptionsView.ColumnAutoWidth = True
     OptionsView.Headers = False
     OptionsView.ShowRoot = False
+    Styles.StyleSheet = f_CashBoxLite.sts_default
     TabOrder = 1
+    OnDblClick = tl_menuDblClick
     object tl_menu_ID: TcxTreeListColumn
       Visible = False
       Caption.Text = 'ID'

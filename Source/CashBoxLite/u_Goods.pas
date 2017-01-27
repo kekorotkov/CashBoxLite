@@ -10,7 +10,7 @@ uses
   cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer,
   cxEdit, dxSkinsCore, dxSkinCaramel, cxCustomData, cxStyles, cxTL, cxTextEdit,
   cxTLdxBarBuiltInMenu, dxSkinsdxStatusBarPainter, cxSplitter, dxStatusBar,
-  cxInplaceContainer, cxButtons, cxGroupBox;
+  cxInplaceContainer, cxButtons, cxGroupBox, cxCurrencyEdit;
 
 type
   Tf_Goods = class(Tf_base_modal_form)
@@ -24,15 +24,25 @@ type
     tl_goods_Name: TcxTreeListColumn;
     tl_groups_ChildCount: TcxTreeListColumn;
     tl_groups_GdsGrpID: TcxTreeListColumn;
+    tl_goods_ParentID: TcxTreeListColumn;
+    tl_goods_Unit_Name: TcxTreeListColumn;
+    tl_goods_Price: TcxTreeListColumn;
+    tl_goods_BarCode: TcxTreeListColumn;
+    tl_goods_IsPiece: TcxTreeListColumn;
     procedure FormResize(Sender: TObject);
     procedure tl_groupsFocusedNodeChanged(Sender: TcxCustomTreeList;
       APrevFocusedNode, AFocusedNode: TcxTreeListNode);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure tl_groupsDblClick(Sender: TObject);
+    procedure tl_groupsEnter(Sender: TObject);
+    procedure tl_goodsEnter(Sender: TObject);
+    procedure tl_goodsCollapsing(Sender: TcxCustomTreeList;
+      ANode: TcxTreeListNode; var Allow: Boolean);
+    procedure tl_goodsDblClick(Sender: TObject);
   private
     lstBreadCrumbs: TStringList;
-    procedure RefreshGoods(const grpNode: TcxTreeListNode; const id: Integer = 0);
+    procedure RefreshGoods(const grpNode: TcxTreeListNode; const id: string = '');
     procedure OpenBarcode;
     procedure Return;
     procedure RefreshBreadCrumbs(const Node: TcxTreeListNode);
@@ -80,7 +90,7 @@ procedure Tf_Goods.FormCreate(Sender: TObject);
   begin
     inherited;
     F1Name := 'Поиск по штрихкоду';
-    F2Name := 'Переместить';
+    F2Name := 'К товару';
     lstBreadCrumbs := TStringList.Create;
   end;
 //==============================================================================
@@ -124,19 +134,71 @@ procedure Tf_Goods.RefreshBreadCrumbs(const Node: TcxTreeListNode);
   end;
 //==============================================================================
 procedure Tf_Goods.RefreshGoods(const grpNode: TcxTreeListNode;
-  const id: Integer);
+  const id: string);
   const
-    sql_all_text = 'select g.id, g.name, 4 as img ' +
-                   '  from gds_grp_hierarchy h ' +
-                   '  join gds_grp_link l ' +
-                   '    on l.grp_id = h.child_id ' +
-                   '  join gds_main g ' +
-                   '    on g.id = l.gds_id ' +
-                   ' where h.parent_id = :par_grp_id';
-    sql_text = 'select g.id, g.name, 4 as img ' +
+    sql_all_text = ' select distinct ' +
+                   '        "g" || g.id as id, ' +
+                   '        null as parent_id, ' +
+                   '        g.name, ' +
+                   '        null as short_name, ' +
+                   '        null as price, ' +
+                   '        null as code, ' +
+                   '        null as is_piece, ' +
+                   '        3 as img ' +
+                   '   from gds_grp_hierarchy h ' +
+                   '   join gds_grp_link l ' +
+                   '     on l.grp_id = h.child_id ' +
+                   '   join gds_grp g ' +
+                   '     on g.id = l.grp_id ' +
+                   '  where h.parent_id = :par_grp_id ' +
+                   '  union all ' +
+                   ' select g.id, ' +
+                   '        "g" || l.grp_id, ' +
+                   '        g.name, ' +
+                   '        u.short_name, ' +
+                   '        replace(ifnull(p.price, p2.price), ".", ","), ' +
+                   '        b.code, ' +
+                   '        u.is_piece, ' +
+                   '        4 as img ' +
+                   '   from gds_grp_hierarchy h ' +
+                   '   join gds_grp_link l ' +
+                   '     on l.grp_id = h.child_id ' +
+                   '   join gds_main g ' +
+                   '     on g.id = l.gds_id ' +
+                   '   join gds_units u ' +
+                   '     on u.id = g.unit_id ' +
+                   '   left join gds_barcode_link bl ' +
+                   '     on bl.gds_id = g.id ' +
+                   '   left join gds_barcode b ' +
+                   '     on b.id = bl.barcode_id ' +
+                   '   left join gds_price p ' +
+                   '     on p.gds_id = g.id ' +
+                   '    and p.barcode_id = b.id ' +
+                   '   left join gds_price p2 ' +
+                   '     on p2.gds_id = g.id ' +
+                   '  where h.parent_id = :par_grp_id';
+    sql_text = 'select g.id, ' +
+               '       null as parent_id, ' +
+               '       g.name, ' +
+               '       u.short_name, ' +
+               '       replace(ifnull(p.price, p2.price), ".", ",") as price, ' +
+               '       b.code, ' +
+               '       u.is_piece, ' +
+               '       4 as img ' +
                '  from gds_grp_link l ' +
                '  join gds_main g ' +
                '    on g.id = l.gds_id ' +
+               '  join gds_units u ' +
+               '    on u.id = g.unit_id ' +
+               '  left join gds_barcode_link bl ' +
+               '    on bl.gds_id = g.id ' +
+               '  left join gds_barcode b ' +
+               '    on b.id = bl.barcode_id ' +
+               '  left join gds_price p ' +
+               '    on p.gds_id = g.id ' +
+               '   and p.barcode_id = b.id ' +
+               '  left join gds_price p2 ' +
+               '    on p2.gds_id = g.id ' +
                ' where l.grp_id = :par_grp_id';
   var
    qr: TUniQuery;
@@ -152,11 +214,25 @@ procedure Tf_Goods.RefreshGoods(const grpNode: TcxTreeListNode;
       TTreeList.FillTreeList(tl_goods,
                              qr,
                              [tl_goods_ID,
-                              tl_goods_Name],
+                              tl_goods_ParentID,
+                              tl_goods_Name,
+                              tl_goods_Unit_Name,
+                              tl_goods_Price,
+                              tl_goods_BarCode,
+                              tl_goods_IsPiece],
                              ['id',
-                              'name'],
+                              'parent_id',
+                              'name',
+                              'short_name',
+                              'price',
+                              'code',
+                              'is_piece'],
                              'img',
-                             tl_goods_ID.ItemIndex);
+                             tl_goods_ID.ItemIndex,
+                             id,
+                             True,
+                             tl_goods_ParentID.ItemIndex);
+      tl_goods.FullExpand;
     finally
       qr.Free;
     end;
@@ -250,13 +326,40 @@ procedure Tf_Goods.Return;
                   btn_f2.Click;
         end
       else
-        if Assigned(tl_groups.FocusedNode) then
+        if Assigned(tl_groups.FocusedNode) and
+           (StrToIntDef(tl_goods.FocusedNode.Texts[tl_goods_ID.ItemIndex], 0) <> 0) then
           ModalResult := mrOk;
+  end;
+//==============================================================================
+procedure Tf_Goods.tl_goodsCollapsing(Sender: TcxCustomTreeList;
+  ANode: TcxTreeListNode; var Allow: Boolean);
+  begin
+    Allow := False;
+
+  end;
+//==============================================================================
+procedure Tf_Goods.tl_goodsDblClick(Sender: TObject);
+  begin
+    btn_return.Click;
+  end;
+//==============================================================================
+procedure Tf_Goods.tl_goodsEnter(Sender: TObject);
+  begin
+    inherited;
+    F2Name := 'К группе';
+    RefreshButton;
   end;
 //==============================================================================
 procedure Tf_Goods.tl_groupsDblClick(Sender: TObject);
   begin
     btn_return.Click;
+  end;
+//==============================================================================
+procedure Tf_Goods.tl_groupsEnter(Sender: TObject);
+  begin
+    inherited;
+    F2Name := 'К товару';
+    RefreshButton;
   end;
 //==============================================================================
 procedure Tf_Goods.tl_groupsFocusedNodeChanged(Sender: TcxCustomTreeList;

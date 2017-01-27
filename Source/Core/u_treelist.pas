@@ -108,7 +108,8 @@ class procedure TTreeList.FillTreeList(const TreeList: TcxTreeList;
             nFocused.MakeVisible;
           end;
 
-        if (TreeList.AbsoluteCount > 0) and (Trim(LocateTo) = '') then
+        if (TreeList.AbsoluteCount > 0) and
+           ((Trim(LocateTo) = '') or (Trim(LocateTo) = '0')) then
           with TreeList.TopNode do
             begin
               Focused := true;

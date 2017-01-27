@@ -1,17 +1,16 @@
-unit u_GoodsBarcodeSearch;
+unit u_AuthorizationPassword;
 
 interface
 
 uses
-  u_base_modal_form,
-  Winapi.Windows,
-  Vcl.StdCtrls, Vcl.Controls, Vcl.Menus,
-  System.Classes,
-  cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer,
-  cxEdit, dxSkinsCore, dxSkinCaramel, cxTextEdit, cxButtons, cxGroupBox;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, u_base_modal_form, cxGraphics,
+  cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit,
+  dxSkinsCore, dxSkinCaramel, Vcl.Menus, Vcl.StdCtrls, cxButtons, cxGroupBox,
+  cxTextEdit;
 
 type
-  Tf_GoodsBarcodeSearch = class(Tf_base_modal_form)
+  Tf_AuthorizationPassword = class(Tf_base_modal_form)
     txt_Barcode: TcxTextEdit;
     procedure txt_BarcodeKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
@@ -22,7 +21,7 @@ type
   end;
 
 var
-  f_GoodsBarcodeSearch: Tf_GoodsBarcodeSearch;
+  f_AuthorizationPassword: Tf_AuthorizationPassword;
 
 implementation
 
@@ -31,7 +30,7 @@ implementation
 uses u_CashBoxLite;
 
 //==============================================================================
-procedure Tf_GoodsBarcodeSearch.FormCreate(Sender: TObject);
+procedure Tf_AuthorizationPassword.FormCreate(Sender: TObject);
   begin
     inherited;
     F1Name := '';
@@ -52,12 +51,11 @@ procedure Tf_GoodsBarcodeSearch.FormCreate(Sender: TObject);
     IsDefFormPos := True;
   end;
 //==============================================================================
-procedure Tf_GoodsBarcodeSearch.txt_BarcodeKeyPress(Sender: TObject;
+procedure Tf_AuthorizationPassword.txt_BarcodeKeyPress(Sender: TObject;
   var Key: Char);
   begin
     if not (Key in ['0'..'9', #8]) then
       Key := #0;
   end;
 //==============================================================================
-
 end.

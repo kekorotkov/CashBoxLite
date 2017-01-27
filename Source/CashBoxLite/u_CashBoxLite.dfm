@@ -105,6 +105,7 @@ inherited f_CashBoxLite: Tf_CashBoxLite
         Style.Font.Height = -27
         Style.Font.Name = 'Tahoma'
         Style.Font.Style = [fsBold]
+        Style.StyleController = st_main_control
         Style.TransparentBorder = True
         Style.IsFontAssigned = True
         TabOrder = 0
@@ -124,6 +125,116 @@ inherited f_CashBoxLite: Tf_CashBoxLite
         Style.IsFontAssigned = True
         Transparent = True
       end
+    end
+  end
+  object tl_cheque: TcxTreeList
+    Left = 0
+    Top = 44
+    Width = 721
+    Height = 372
+    Align = alClient
+    Bands = <
+      item
+      end>
+    Images = il_main
+    Navigator.Buttons.CustomButtons = <>
+    OptionsData.Editing = False
+    OptionsData.Deleting = False
+    OptionsSelection.CellSelect = False
+    OptionsView.CellEndEllipsis = True
+    OptionsView.Buttons = False
+    OptionsView.ColumnAutoWidth = True
+    OptionsView.GridLines = tlglBoth
+    OptionsView.ShowRoot = False
+    Styles.StyleSheet = sts_default
+    TabOrder = 3
+    ExplicitWidth = 361
+    ExplicitHeight = 417
+    object tl_cheque_ID: TcxTreeListColumn
+      Visible = False
+      Caption.Text = 'ID'
+      DataBinding.ValueType = 'String'
+      Options.Customizing = False
+      Options.Sorting = False
+      Position.ColIndex = 0
+      Position.RowIndex = 0
+      Position.BandIndex = 0
+      Summary.FooterSummaryItems = <>
+      Summary.GroupFooterSummaryItems = <>
+    end
+    object tl_cheque_name: TcxTreeListColumn
+      Caption.AlignHorz = taCenter
+      Caption.Text = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
+      DataBinding.ValueType = 'String'
+      Options.Sorting = False
+      Position.ColIndex = 1
+      Position.RowIndex = 0
+      Position.BandIndex = 0
+      Summary.FooterSummaryItems = <>
+      Summary.GroupFooterSummaryItems = <>
+    end
+    object tl_cheque_unit: TcxTreeListColumn
+      RepositoryItem = er_main_txt
+      Caption.AlignHorz = taCenter
+      Caption.Text = #1045#1076'.'#1080#1079#1084'.'
+      DataBinding.ValueType = 'String'
+      Options.Sorting = False
+      Width = 30
+      Position.ColIndex = 2
+      Position.RowIndex = 0
+      Position.BandIndex = 0
+      Summary.FooterSummaryItems = <>
+      Summary.GroupFooterSummaryItems = <>
+    end
+    object tl_cheque_price: TcxTreeListColumn
+      RepositoryItem = er_main_price_ReadOnly
+      Caption.AlignHorz = taCenter
+      Caption.Text = #1062#1077#1085#1072
+      DataBinding.ValueType = 'String'
+      Options.Sorting = False
+      Width = 50
+      Position.ColIndex = 3
+      Position.RowIndex = 0
+      Position.BandIndex = 0
+      Summary.FooterSummaryItems = <>
+      Summary.GroupFooterSummaryItems = <>
+    end
+    object tl_cheque_Count: TcxTreeListColumn
+      RepositoryItem = er_main_count
+      Caption.AlignHorz = taCenter
+      Caption.Text = #1050#1086#1083'-'#1074#1086
+      DataBinding.ValueType = 'String'
+      Options.Sorting = False
+      Width = 50
+      Position.ColIndex = 4
+      Position.RowIndex = 0
+      Position.BandIndex = 0
+      Summary.FooterSummaryItems = <>
+      Summary.GroupFooterSummaryItems = <>
+    end
+    object tl_cheque_sum: TcxTreeListColumn
+      RepositoryItem = er_main_price_ReadOnly
+      Caption.AlignHorz = taCenter
+      Caption.Text = #1057#1091#1084#1084#1072
+      DataBinding.ValueType = 'String'
+      Options.Sorting = False
+      Width = 50
+      Position.ColIndex = 5
+      Position.RowIndex = 0
+      Position.BandIndex = 0
+      Summary.FooterSummaryItems = <>
+      Summary.GroupFooterSummaryItems = <>
+    end
+    object tl_cheque_IsPiece: TcxTreeListColumn
+      Visible = False
+      Caption.Text = 'IsPiece'
+      DataBinding.ValueType = 'String'
+      Options.Customizing = False
+      Position.ColIndex = 6
+      Position.RowIndex = 0
+      Position.BandIndex = 0
+      Summary.FooterSummaryItems = <>
+      Summary.GroupFooterSummaryItems = <>
     end
   end
   object il_main: TcxImageList
@@ -667,6 +778,14 @@ inherited f_CashBoxLite: Tf_CashBoxLite
       Properties.DisplayFormat = ',0.00 '#1088#1091#1073';-,0.00 '#1088#1091#1073
       Properties.ReadOnly = True
     end
+    object er_main_txt: TcxEditRepositoryTextItem
+      Properties.Alignment.Horz = taCenter
+    end
+    object er_main_count_is_piece: TcxEditRepositoryCurrencyItem
+      Properties.Alignment.Horz = taRightJustify
+      Properties.DecimalPlaces = -1
+      Properties.DisplayFormat = '0'
+    end
   end
   object sc_main: TdxSkinController
     Kind = lfFlat
@@ -681,5 +800,50 @@ inherited f_CashBoxLite: Tf_CashBoxLite
     SkinName = 'Caramel'
     Left = 48
     Top = 152
+  end
+  object st_main: TcxStyleRepository
+    Left = 64
+    Top = 216
+    PixelsPerInch = 96
+    object st_default_font: TcxStyle
+      AssignedValues = [svFont]
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = []
+    end
+    object sts_default: TcxTreeListStyleSheet
+      Styles.Background = st_default_font
+      Styles.Content = st_default_font
+      Styles.Inactive = st_default_font
+      Styles.Selection = st_default_font
+      Styles.BandBackground = st_default_font
+      Styles.BandContent = st_default_font
+      Styles.BandHeader = st_default_font
+      Styles.ColumnFooter = st_default_font
+      Styles.ColumnHeader = st_default_font
+      Styles.ContentEven = st_default_font
+      Styles.ContentOdd = st_default_font
+      Styles.Footer = st_default_font
+      Styles.HotTrack = st_default_font
+      Styles.IncSearch = st_default_font
+      Styles.Indicator = st_default_font
+      Styles.Navigator = st_default_font
+      Styles.NavigatorInfoPanel = st_default_font
+      Styles.Preview = st_default_font
+      BuiltIn = True
+    end
+  end
+  object st_main_control: TcxEditStyleController
+    Style.Font.Charset = DEFAULT_CHARSET
+    Style.Font.Color = clWindowText
+    Style.Font.Height = -16
+    Style.Font.Name = 'Tahoma'
+    Style.Font.Style = [fsBold]
+    Style.IsFontAssigned = True
+    Left = 24
+    Top = 216
+    PixelsPerInch = 96
   end
 end

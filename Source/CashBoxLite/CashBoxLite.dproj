@@ -127,6 +127,22 @@
             <Form>f_Pay</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="u_AuthorizationBarcode.pas">
+            <Form>f_AuthorizationBarcode</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="u_AuthorizationPassword.pas">
+            <Form>f_AuthorizationPassword</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="u_GoodsAdd.pas">
+            <Form>f_GoodsAdd</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="u_GoodsDel.pas">
+            <Form>f_GoodsDel</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

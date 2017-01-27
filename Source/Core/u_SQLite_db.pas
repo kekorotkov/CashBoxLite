@@ -125,9 +125,9 @@ function TDataBase.InsertIntoTable(const TableName: string;
           if not VarIsStr(Values[i]) or (Copy(Values[i], 1, 1) <> '%') then
             ParamByName('P' + IntToStr(i)).Value := Values[i];
         ExecSQL;
-//        SQL.Text := 'SELECT LAST_INSERT_ID()';
+        SQL.Text := 'SELECT LAST_INSERT_ROWID()';
         Open;
-        Result := 0; //Fields[0].AsInteger;
+        Result := Fields[0].AsInteger;
       finally
         Free;
       end;

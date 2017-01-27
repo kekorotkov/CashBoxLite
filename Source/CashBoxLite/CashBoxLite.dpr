@@ -16,7 +16,11 @@ uses
   u_md5 in '..\Core\u_md5.pas',
   u_SQLite_db in '..\Core\u_SQLite_db.pas',
   u_GoodsBarcodeSearch in 'u_GoodsBarcodeSearch.pas' {f_GoodsBarcodeSearch},
-  u_Pay in 'u_Pay.pas' {f_Pay};
+  u_Pay in 'u_Pay.pas' {f_Pay},
+  u_AuthorizationBarcode in 'u_AuthorizationBarcode.pas' {f_AuthorizationBarcode},
+  u_AuthorizationPassword in 'u_AuthorizationPassword.pas' {f_AuthorizationPassword},
+  u_GoodsAdd in 'u_GoodsAdd.pas' {f_GoodsAdd},
+  u_GoodsDel in 'u_GoodsDel.pas' {f_GoodsDel};
 
 {$R *.res}
 
